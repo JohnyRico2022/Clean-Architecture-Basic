@@ -6,22 +6,20 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import androidx.lifecycle.ViewModelProvider
+import org.koin.androidx.viewmodel.ext.android.viewModel
+
+
 import ru.nikita.cleanarchitecturebasic.R
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var viewModel: MainViewModel
+    private val viewModel:MainViewModel by viewModel<MainViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         Log.d("MyLog", "Activity created")
-
-        // создание VM  с помощью Фабрики. Можно проще: Выше дописать by viewModel
-        viewModel = ViewModelProvider(this, MainViewModelFactory(this))
-            .get(MainViewModel::class.java)
 
         val dataTextView = findViewById<TextView>(R.id.dataTextView)
         val dataEditText = findViewById<EditText>(R.id.dataEditText)
