@@ -7,16 +7,22 @@ import android.widget.EditText
 import android.widget.TextView
 import ru.nikita.cleanarchitecturebasic.R
 import ru.nikita.cleanarchitecturebasic.data.repository.UserRepositoryImpl
+import ru.nikita.cleanarchitecturebasic.data.storage.sharedprefs.SharedPrefUserStorage
 import ru.nikita.cleanarchitecturebasic.domain.model.SaveUserNameParam
 import ru.nikita.cleanarchitecturebasic.domain.usecase.GetUserNameUseCase
 import ru.nikita.cleanarchitecturebasic.domain.usecase.SaveUserNameUseCase
 
 class MainActivity : AppCompatActivity() {
 
-    private val userRepository by lazy(LazyThreadSafetyMode.NONE) { UserRepositoryImpl(context = applicationContext) }
-    private val getUserNameUseCase by lazy(LazyThreadSafetyMode.NONE) { GetUserNameUseCase(userRepository = userRepository) }
-    private val saveUserNameUseCase by lazy(LazyThreadSafetyMode.NONE) { SaveUserNameUseCase(userRepository = userRepository) }
-
+    private val userRepository by lazy(LazyThreadSafetyMode.NONE) {
+        UserRepositoryImpl(userStorage = SharedPrefUserStorage(context = applicationContext))
+    }
+    private val getUserNameUseCase by lazy(LazyThreadSafetyMode.NONE) {
+        GetUserNameUseCase(userRepository = userRepository)
+    }
+    private val saveUserNameUseCase by lazy(LazyThreadSafetyMode.NONE) {
+        SaveUserNameUseCase(userRepository = userRepository)
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
