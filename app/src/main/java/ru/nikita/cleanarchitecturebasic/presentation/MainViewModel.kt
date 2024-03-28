@@ -13,6 +13,7 @@ class MainViewModel(
     private val saveUserNameUseCase: SaveUserNameUseCase
 ) : ViewModel() {
 
+
     //Предохраняем MutableLiveData от записи из вне этого класса
     private val _resultLive = MutableLiveData<String>()
     val resultLive: LiveData<String> = _resultLive

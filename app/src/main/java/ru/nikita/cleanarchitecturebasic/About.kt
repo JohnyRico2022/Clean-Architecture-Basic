@@ -1,14 +1,13 @@
 package ru.nikita.cleanarchitecturebasic
 
 /*
-  Лекции часть 4:  MVVM
+  Лекции часть 5:  Koin
 
 
-    MVVM это паттерн который отвечает за контроль состояния активити/фрагмента
-    ViewModel должна быть без контекста
-    Activity - получила данные, показала на экране и всё!!!
+   Добавляем в проект Dependency Injection (DI).
+   Используем библиотеку Koin
 
-    Диаграмма MVVM: app/src/main/res/drawable
+    Диаграмма DI: app/src/main/res/drawable
 
 */
 
