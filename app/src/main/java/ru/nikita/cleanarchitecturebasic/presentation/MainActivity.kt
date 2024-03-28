@@ -15,13 +15,17 @@ import ru.nikita.cleanarchitecturebasic.domain.usecase.SaveUserNameUseCase
 class MainActivity : AppCompatActivity() {
 
     private val userRepository by lazy(LazyThreadSafetyMode.NONE) {
-        UserRepositoryImpl(userStorage = SharedPrefUserStorage(context = applicationContext))
+        ru.nikita.cleanarchitecturebasic.data.repository.UserRepositoryImpl(
+            userStorage = ru.nikita.cleanarchitecturebasic.data.storage.sharedprefs.SharedPrefUserStorage(
+                context = applicationContext
+            )
+        )
     }
     private val getUserNameUseCase by lazy(LazyThreadSafetyMode.NONE) {
-        GetUserNameUseCase(userRepository = userRepository)
+        ru.nikita.cleanarchitecturebasic.domain.usecase.GetUserNameUseCase(userRepository = userRepository)
     }
     private val saveUserNameUseCase by lazy(LazyThreadSafetyMode.NONE) {
-        SaveUserNameUseCase(userRepository = userRepository)
+        ru.nikita.cleanarchitecturebasic.domain.usecase.SaveUserNameUseCase(userRepository = userRepository)
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +39,8 @@ class MainActivity : AppCompatActivity() {
         sendButton.setOnClickListener {
             //клик по кнопке Save Data
             val text = dataEditText.text.toString()
-            val params = SaveUserNameParam(name = text)
+            val params =
+                ru.nikita.cleanarchitecturebasic.domain.model.SaveUserNameParam(name = text)
             val result: Boolean = saveUserNameUseCase.execute(param = params)
             dataTextView.text = "Save result = $result"
         }
