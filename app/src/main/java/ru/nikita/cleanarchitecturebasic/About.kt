@@ -1,10 +1,9 @@
 package ru.nikita.cleanarchitecturebasic
 
 /*
-  Лекции часть 6:  Unit tests
+  Лекции часть 7:  Dagger
 
-
-  Добавлены Unit Тесты в модулях Domain и App
+  Dagger построен на кодогенерации и ошибки возникают в момент компиляции.
 
 */
 

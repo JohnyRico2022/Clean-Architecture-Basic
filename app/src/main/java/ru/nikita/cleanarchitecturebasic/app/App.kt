@@ -1,23 +1,23 @@
 package ru.nikita.cleanarchitecturebasic.app
 
 import android.app.Application
-import org.koin.android.ext.koin.androidContext
-import org.koin.android.ext.koin.androidLogger
-import org.koin.core.context.startKoin
-import org.koin.core.logger.Level
-import ru.nikita.cleanarchitecturebasic.di.appModule
-import ru.nikita.cleanarchitecturebasic.di.dataModule
-import ru.nikita.cleanarchitecturebasic.di.domainModule
+import ru.nikita.cleanarchitecturebasic.di.AppComponent
+import ru.nikita.cleanarchitecturebasic.di.AppModule
+import ru.nikita.cleanarchitecturebasic.di.DaggerAppComponent
 
-class App: Application() {
+
+class App:Application() {
+
+    lateinit var appComponent: AppComponent
+
 
     override fun onCreate() {
         super.onCreate()
 
-        startKoin {
-            androidLogger(Level.DEBUG)
-            androidContext(this@App)
-            modules(listOf(appModule, domainModule, dataModule))
-        }
+        appComponent = DaggerAppComponent
+            .builder()
+            .appModule(AppModule(context = this))
+            .build()
     }
+
 }

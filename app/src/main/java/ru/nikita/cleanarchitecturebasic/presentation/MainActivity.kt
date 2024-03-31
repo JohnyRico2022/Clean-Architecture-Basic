@@ -6,20 +6,29 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import androidx.lifecycle.ViewModelProvider
 
 
 import ru.nikita.cleanarchitecturebasic.R
+import ru.nikita.cleanarchitecturebasic.app.App
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
 
-    private val viewModel:MainViewModel by viewModel<MainViewModel>()
+    @Inject
+    lateinit var viewModelFactory: MainViewModelFactory
+    private lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        (application as App).appComponent.inject(this)
+
         Log.d("MyLog", "Activity created")
+
+        viewModel = ViewModelProvider(this, viewModelFactory)
+            .get(MainViewModel::class.java)
 
         val dataTextView = findViewById<TextView>(R.id.dataTextView)
         val dataEditText = findViewById<EditText>(R.id.dataEditText)
