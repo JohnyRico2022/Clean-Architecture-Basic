@@ -14,28 +14,47 @@ class MainViewModel(
 ) : ViewModel() {
 
 
-    //Предохраняем MutableLiveData от записи из вне этого класса
-    private val _resultLive = MutableLiveData<String>()
-    val resultLive: LiveData<String> = _resultLive
+    private val stateLiveMutable = MutableLiveData<MainState>()
+    val stateLive: LiveData<MainState> = stateLiveMutable
 
     init {
-        Log.d("MyLog", "VM created")
+        stateLiveMutable.value = MainState(
+            saveResult = false,
+            firstName = "",
+            lastName = ""
+        )
     }
 
-    // Этот метод вызывается, кагда связанная с VM активити уничтожается
-    override fun onCleared() {
-        super.onCleared()
-        Log.d("MyLog", "VM destroy")
+
+    fun send(event: MainEvent) {
+        when (event) {
+            is SaveEvent -> {
+                save(text = event.text)
+            }
+
+            is LoadEvent -> {
+                load()
+
+            }
+        }
     }
 
-    fun save(text: String) {
+    private fun save(text: String) {
         val params = SaveUserNameParam(name = text)
         val result: Boolean = saveUserNameUseCase.execute(param = params)
-        _resultLive.value = "Save result = $result"
+        stateLiveMutable.value = MainState(
+            saveResult = result,
+            firstName = stateLiveMutable.value!!.firstName,
+            lastName = stateLiveMutable.value!!.lastName
+        )
     }
 
-    fun load() {
+    private fun load() {
         val userName = getUserNameUseCase.execute()
-        _resultLive.value = "${userName.firstName} ${userName.lastName}"
+        stateLiveMutable.value = MainState(
+            saveResult = stateLiveMutable.value!!.saveResult,
+            firstName = userName.firstName,
+            lastName = userName.lastName
+        )
     }
 }

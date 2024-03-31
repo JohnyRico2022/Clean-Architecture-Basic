@@ -1,10 +1,12 @@
 package ru.nikita.cleanarchitecturebasic
 
 /*
-  Лекции часть 6:  Unit tests
+  Лекции часть 9:  MVI
 
 
-  Добавлены Unit Тесты в модулях Domain и App
+  Между Activity  и ViewModel один вход и один выход
+
+   Диаграмма MVI: app/src/main/res/drawable
 
 */
 

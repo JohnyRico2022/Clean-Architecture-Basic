@@ -28,19 +28,20 @@ class MainActivity : AppCompatActivity() {
 
         //Отписка происходит автоматически в onDestroy
         // подписка onResume в отписка onPause
-        viewModel.resultLive.observe(this) { text ->
-            dataTextView.text = text
+        viewModel.stateLive.observe(this) { state ->
+            dataTextView.text = "${state.firstName} ${state.lastName} ${state.saveResult}"
         }
+
 
         sendButton.setOnClickListener {
             //клик по кнопке Save Data
             val text = dataEditText.text.toString()
-            viewModel.save(text)
+            viewModel.send(SaveEvent(text = text))
         }
 
         receiveButton.setOnClickListener {
             //клик по кнопке Get Data
-            viewModel.load()
+            viewModel.send(LoadEvent())
         }
     }
 }
