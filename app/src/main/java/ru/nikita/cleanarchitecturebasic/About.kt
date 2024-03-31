@@ -1,10 +1,10 @@
 package ru.nikita.cleanarchitecturebasic
 
 /*
-  Лекции часть 6:  Unit tests
+  Лекции часть 8:  Hilt
 
 
-  Добавлены Unit Тесты в модулях Domain и App
+
 
 */
 

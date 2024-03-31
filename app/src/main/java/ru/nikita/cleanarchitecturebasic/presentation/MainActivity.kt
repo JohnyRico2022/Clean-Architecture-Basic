@@ -6,14 +6,15 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import org.koin.androidx.viewmodel.ext.android.viewModel
-
-
+import androidx.activity.viewModels
+import dagger.hilt.android.AndroidEntryPoint
 import ru.nikita.cleanarchitecturebasic.R
 
+
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    private val viewModel:MainViewModel by viewModel<MainViewModel>()
+    private val viewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
